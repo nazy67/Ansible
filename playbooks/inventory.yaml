@@ -1,0 +1,10 @@
+all:
+  hosts:
+  # ungrouped
+  children:
+    dev_servers:
+      hosts:
+        host-01:
+          ansible_host: 161.35.128.10
+        host-02:
+          ansible_host: 104.131.167.55
