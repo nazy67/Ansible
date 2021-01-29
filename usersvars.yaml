@@ -1,5 +1,0 @@
----
-   user_details:
-      - { name: amy, uid: 2100, comment: SystemAdmin, groups: "SystemAdmin" }
-      - { name: bill, uid: 2101, comment: SystemEngineer, groups: "SystemEngineer" }
-      - { name: jill, uid: 2102, comment: LeadEngineer, groups: "LeadEngineer"}
