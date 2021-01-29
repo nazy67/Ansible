@@ -1,2 +1,2 @@
 # Ansible
-ansible class repo
+ansible class repository
