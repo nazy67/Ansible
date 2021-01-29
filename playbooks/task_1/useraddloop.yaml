@@ -1,0 +1,14 @@
+--- 
+  - name: Add multiple users Amy, Bill, Jill to remote hosts
+    hosts: remote_hosts 
+    remote_user: root
+  
+    tasks:  # adding users to remote_hosts
+      - name: more complex items to add several users
+        user:
+          name: "{{ item.name }}"
+          comment: "{{ item.comment }}"
+          uid: "{{ item.uid }}"
+          groups: "{{ item.groups }}"
+          state: present
+        with_items: "{{ user_details }}"

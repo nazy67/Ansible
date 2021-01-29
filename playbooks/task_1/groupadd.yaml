@@ -1,0 +1,14 @@
+---
+  - name: multiple  groupadd  
+    hosts: remote_hosts 
+    remote_user: root
+
+    tasks:  
+      - name: adding multiple groups to remote hosts 
+        group: 
+          name: "{{ item }}"
+          state: present       
+        with_items:
+          - LeadEngineer
+          - SystemAdmin
+          - SystemEngineer
