@@ -1,0 +1,14 @@
+---
+  all:
+    hosts: # listing all hosts
+      localhost:
+      host1:
+      host2:
+    localhost: # localhost 
+    children:
+      remote_hosts: # remote hosts
+        hosts:
+          host1:
+            ansible_host: 138.197.103.38
+          host2:
+            ansible_host: 174.138.61.55
