@@ -1,0 +1,8 @@
+---
+  - name: upgrate packages on ubuntu
+    hosts: web
+    tasks:
+      - name: package upgrade
+        apt:
+          name: "*"
+          state: latest

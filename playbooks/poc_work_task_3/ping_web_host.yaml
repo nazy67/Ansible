@@ -1,0 +1,6 @@
+---
+  - name: ping web host
+    hosts: web
+    tasks:
+      - name: ping  web host
+        ping:

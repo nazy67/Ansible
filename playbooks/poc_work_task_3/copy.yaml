@@ -1,0 +1,8 @@
+--- 
+  - name: copy index.html to remote servers
+    hosts: web
+    tasks: 
+      - name: copy file 
+        copy: 
+          src: /root/poc_work/index.html
+          dest: /usr/share/nginx/html/

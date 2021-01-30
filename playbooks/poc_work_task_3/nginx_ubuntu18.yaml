@@ -1,0 +1,42 @@
+---
+  - name: nginx webserver 
+    hosts: web
+    tasks: 
+      - name: install nginx latest version
+        apt: 
+          name: nginx
+          state: latest 
+          update_cache: yes
+      - name: start and enable nginx
+        ansible.builtin.service: 
+          name: nginx
+          state: started 
+          enabled: yes
+
+      - name: disable nginx default file
+        file:
+          path: /etc/nginx/sites-enabled/default
+          state: absent
+
+      - name: deploy config file
+        template: 
+          src: template/static_web.cfg 
+          dest: /etc/nginx/sites-available/static-web   
+
+      - name: enable /etc/nginx/sites-available/static-web
+        file: 
+          src:  /etc/nginx/sites-available/static-web
+          dest: /etc/nginx/sites-enabled/static-web
+          state: link
+        notify: restart nginx  
+
+      - name: copy index.html to remote servers 
+        copy: 
+          src: /root/poc_work/index.html
+          dest: /usr/share/nginx/html/
+          
+    handlers:
+      - name: restart nginx
+        ansible.builtin.service:
+          name: nginx
+          state: restarted 
