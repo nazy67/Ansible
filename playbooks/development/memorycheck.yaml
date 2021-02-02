@@ -1,0 +1,10 @@
+--- 
+  - name: check free -h command
+    hosts: all
+    tasks: 
+      - name: free memory
+        shell:
+          cmd: free -h 
+        register:  outputs
+      - debug: 
+          var: outputs

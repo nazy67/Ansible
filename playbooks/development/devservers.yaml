@@ -1,0 +1,15 @@
+all: 
+  hosts:
+    localhost:  # ungrouped 
+  children: 
+    dev:
+      hosts:
+        centos:
+         ansible_host: 161.35.128.10
+        ubuntu-2:
+         ansible_host: 68.183.132.232
+    #dev_2:
+    #  hosts:
+    #    app:
+    #      ansible_host: 161.35.128.10 
+   

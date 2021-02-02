@@ -1,0 +1,20 @@
+---
+  - name:  installin apache and copy index.html to remote servers
+    hosts: centos
+    remote_user: root
+    
+    tasks:
+      - name: Install httpd
+        yum:
+          name: httpd
+          state: latest      
+      - name: ensure httpd enabled and running
+        systemd:
+          name: httpd
+          state: started 
+          enabled: yes 
+
+      - name: copy index.html to remote servers
+        copy: 
+          src: /tmp/index.html
+          dest: /var/www/html          

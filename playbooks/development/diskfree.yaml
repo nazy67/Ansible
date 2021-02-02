@@ -1,0 +1,10 @@
+--- 
+  - name: run disk df -h command
+    hosts: all
+    tasks: 
+      - name: dist free
+        shell:
+          cmd: df -h 
+        register:  output
+      - debug: 
+          var: output
