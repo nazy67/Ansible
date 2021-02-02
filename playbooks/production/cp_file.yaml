@@ -1,0 +1,10 @@
+---
+  - name:   creates a file  with content in remote hosts 
+    hosts: prod 
+    tasks:
+      - name: file  with content in remote hosts
+        copy:
+          dest: /tmp/ansible_file1
+          content: |  
+                Hello from Ansible
+                Hello from a local Machine

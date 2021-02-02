@@ -1,0 +1,9 @@
+---
+  - name:   change file content in remote hosts 
+    hosts: prod 
+    tasks:
+      - name: change "Hello" to "Bye”
+        lineinfile:
+          dest: /tmp/ansible_file1
+          regexp: '^Hello from Ansible'
+          line: 'Bye from Ansible'

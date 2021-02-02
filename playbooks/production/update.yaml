@@ -1,0 +1,23 @@
+---
+  - name: update package on both servers
+    hosts: prod 
+
+    tasks: 
+      - name: ping prod servers
+        ping:
+
+      - name: yum update packages centos
+        yum:
+          name: "*"
+          state: latest
+        when: 
+          - ansible_facts['distribution'] == "CentOS"
+          - ansible_facts['hostname'] == "centos"
+          
+      - name: apt update packages ubuntu
+        apt:
+          name: "*"
+          state: latest
+        when: 
+          - ansible_facts['distribution'] == "Ubuntu" 
+          - ansible_facts['hostname'] == "ubuntu-2"

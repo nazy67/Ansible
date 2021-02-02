@@ -1,0 +1,14 @@
+---
+  - name: configure sshd file on centos
+    hosts: centos
+    tasks:
+      - name: change "Port 55500" to "Port 55400”
+        lineinfile:
+          dest: /etc/ssh/sshd_config
+          regexp: '^Port 55500' # if it's not uncommented '^#Port'
+          line: 'Port 55400'
+
+      - name: restart sshd
+        service:
+          name: sshd
+          state: restarted       

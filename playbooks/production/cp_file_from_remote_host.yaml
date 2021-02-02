@@ -1,0 +1,8 @@
+---
+  - name: fetching a file from remote hosts 
+    hosts: prod 
+    tasks:
+      - name: fetching a file
+        fetch:
+          src: /tmp/ansible_file
+          dest: /root/production/ 
