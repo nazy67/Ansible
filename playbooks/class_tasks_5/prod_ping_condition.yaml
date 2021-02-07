@@ -1,0 +1,8 @@
+---
+  - name: ping prod if its exist
+    hosts: prod
+    gather_facts: yes
+    tasks: 
+      - name: ping prod group it defined in inventory.yaml 
+        ping: 
+        when: "'prod' in group_names"   

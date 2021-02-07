@@ -1,0 +1,36 @@
+---
+  - name:   install htop, vim and curl on remote hosts 
+    gather_facts: yes
+    hosts: all 
+    tasks:
+      - name: install epel-release
+        when: 
+          - ansible_distribution == "CentOS"
+        # ignore_errors: false  
+        yum: 
+          name: 
+            - epel-release
+        register: task1_result    
+            
+      - name: install packages vim and curl on CentOS
+        yum:
+          name:  
+            - htop
+            - vim
+            - curl
+          state: present
+        when: 
+          - ansible_distribution == "CentOS" 
+          - ansible_facts['hostname'] == "centos"
+          - task1_result is success # failed or 
+
+      - name: install packages vim and curl on Ubuntu
+        apt:
+          name:  
+            - htop
+            - vim
+            - curl
+          state: present
+        when: 
+          - ansible_facts['distribution'] == "Ubuntu" 
+          - ansible_facts['hostname'] == "ubuntu-2"          

@@ -1,0 +1,41 @@
+---
+  - name: Install httpd  on both servers
+    hosts: prod 
+    tasks:
+      - name: Install httpd Centos
+        when: 
+          - ansible_facts['distribution'] == "CentOS"
+          - ansible_facts['distribution_major_version'] == "7"
+        yum:
+          name: httpd
+          state: latest # present or installed
+        register: apache_installed_centos
+
+      - name: Start httpd centos
+        when: 
+          - ansible_distribution == "CentOS" 
+          - ansible_facts['hostname'] == "centos"
+          - apache_installed_centos is success # failed or
+        systemd:
+          name: httpd
+          state: started
+          enabled: yes          
+          
+      - name: Install Apache2 on Ubuntu
+        when: 
+          - ansible_facts['distribution'] == "Ubuntu" 
+          - ansible_facts['distribution_major_version'] == "20"          
+        apt:
+          name:  apache2
+          state: latest
+        register: apache_installed_ubuntu
+
+      - name: start apache Ubuntu
+        when: 
+          - ansible_distribution == "Ubuntu" 
+          - ansible_facts['hostname'] == "ubuntu-2"
+          - apache_installed_ubuntu is success # failed 
+        systemd:
+          name: apache2.service
+          state: started
+          enabled: yes          
