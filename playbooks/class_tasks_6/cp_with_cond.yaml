@@ -1,0 +1,11 @@
+---
+  - name:  copy a file from local to remote hosts 
+    hosts: prod 
+    gather_facts: yes
+    tasks:
+      - name: copy file to ubuntu  
+        copy:
+          src: /tmp/testfile
+          dest: /tmp/testfile
+        when: 
+          - ansible_facts['distribution'] == "Ubuntu" 

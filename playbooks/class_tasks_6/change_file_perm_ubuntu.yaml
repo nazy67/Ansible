@@ -1,0 +1,9 @@
+---
+  - name:  change permission on /tmp/testfile ubuntu host
+    hosts: prod 
+    tasks:
+      - name:  change permission of the /tmp/testfile to 0666 on ubuntu
+        file:
+          path: /tmp/testfile
+          mode: 0666
+        when: ansible_facts['hostname'] == "ubuntu-2"  

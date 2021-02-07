@@ -1,0 +1,13 @@
+---
+  - name: fetching a testfile file from remote hosts 
+    hosts: prod 
+    gather_facts: yes
+    tasks:
+      - name: fetching a /tmp/testfile file
+        fetch:
+          src: /tmp/testfile
+          dest: /root/production/tasks/ 
+        when: 
+          - ansible_facts['distribution'] == "Ubuntu" 
+          - ansible_facts['hostname'] == "ubuntu-2"
+    

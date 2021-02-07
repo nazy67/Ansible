@@ -1,0 +1,37 @@
+---
+  - name: multiple tasks
+    hosts: all
+    gather_facts: yes
+    tasks: 
+      - name: ping prod group 
+        ping: 
+        when: "'prod' in group_names" 
+
+      - name: install vim,wget and curl on centos
+        when: ansible_facts['distribution'] == "CentOS"
+        yum: 
+          name:
+            - vim
+            - curl
+            - wget
+          state: latest 
+
+      - name: add users amy, anna and liza on centos
+        when: ansible_facts['distribution'] == "CentOS"
+        user:
+          name: "{{ item }}"
+          state: present
+          generate_ssh_key: yes  
+        with_items: 
+          - amy
+          - anna
+          - liza  
+                  
+      - name: install vim,wget and curl in ubuntu
+        when: ansible_facts['distribution'] == "Ubuntu"
+        apt: 
+          name:
+            - vim
+            - curl
+            - wget
+          state: latest

@@ -1,0 +1,9 @@
+---
+  - name: ping dev group if its exist
+    hosts: dev
+    gather_facts: yes
+    tasks: 
+      - name: ping dev group it defined in devinventory.yaml 
+        ping: 
+        when: 
+        - "'dev' in group_names" 

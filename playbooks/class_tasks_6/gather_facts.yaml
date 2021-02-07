@@ -1,0 +1,10 @@
+---
+  - name: retrive distribution and major versionsof remote servers
+    gather_facts: yes
+    hosts: all
+    tasks:      
+      - name: ansible distribution and major versions 
+        debug: 
+          msg: 
+          -  '{{ ansible_distribution }}'  
+          - '{{ ansible_distribution_major_version }}' 

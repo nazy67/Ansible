@@ -1,0 +1,17 @@
+---
+all:
+  hosts:
+    # localhost: # ungrouped
+  children:
+    prod:
+      hosts:
+        centos: # key
+          ansible_host: 157.230.90.98 # key: value
+          ansible_port: 55400
+        ubuntu: # key
+          ansible_host: 68.183.132.232 # key: value 
+    dev:
+      hosts:
+        centos: 
+          ansible_host: 157.230.90.98 # key: value
+          ansible_port: 55400  

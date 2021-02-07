@@ -1,0 +1,9 @@
+---
+  - name:  change permission locahhost 
+    hosts: localhost 
+    tasks:
+      - name:  change permission of the /tmp/testfile to 0666
+        file:
+          path: /tmp/testfile
+          mode: 0666
+        when: ansible_facts['distribution'] == "CentOS"  

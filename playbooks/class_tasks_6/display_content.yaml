@@ -1,0 +1,11 @@
+---
+  - name: check if prod servers in invertory file
+    hosts: all
+    vars:
+      contents: "{{ lookup('file', '/root/Ansible/playbooks/production/inventory.yaml') }}" 
+    tasks: 
+      - name: display file content
+        debug: msg="the value of invertory.yaml is {{ contents }}" 
+ 
+    
+                  
