@@ -1,6 +1,6 @@
-Ad-hoc commands:
+### Task_3
 
-Run ad-hoc command to check free memory on web host
+1. Run ad-hoc command to check free memory on web host
 ```
 ansible -i poc_servers.yaml web -m shell -a "free -h"
 ```
@@ -11,7 +11,7 @@ web | CHANGED | rc=0 >>
 Mem:          981Mi       270Mi        98Mi       0.0Ki       612Mi       531Mi
 Swap:            0B          0B          0B
 ```
-Run ad-hoc command to check free disk on we host 
+2. Run ad-hoc command to check free disk on we host 
 ``` 
 ansible -i poc_servers.yaml web -m shell -a "df -h"
 ```
@@ -34,7 +34,7 @@ Output:
  /dev/loop5       32M   32M     0 100% /snap/snapd/10707
  tmpfs            99M     0   99M   0% /run/user/0
 ``` 
-Run ad-hoc command to check the status of nginx service
+3. Run ad-hoc command to check the status of nginx service
 ```
 ansible -i poc_servers.yaml all -m shell -a "systemctl status nginx" 
 ```
@@ -58,7 +58,7 @@ Jan 31 00:31:04 ubuntu systemd[1]: Starting A high performance web server and a 
 Jan 31 00:31:04 ubuntu systemd[1]: nginx.service: Failed to parse PID from file /run/nginx.pid: Invalid argument
 Jan 31 00:31:04 ubuntu systemd[1]: Started A high performance web server and a reverse proxy server.
 ```
-Run ad-hoc command to check distribution of web host (hint  use setup module)
+4. Run ad-hoc command to check distribution of web host (hint  use setup module)
 ```
 ansible -i poc_servers.yaml web -m setup -a "filter=ansible_distr*"
 ```
@@ -78,7 +78,7 @@ web | SUCCESS => {
     "changed": false
 }
 ```  
-Run ad-hoc command to check hostname on web host (bin use setup module)
+5. Run ad-hoc command to check hostname on web host (bin use setup module)
 ```
 ansible -i poc_servers.yaml web -m setup -a "filter=ansible_nodename"
 ```
