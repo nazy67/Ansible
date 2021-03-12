@@ -30,3 +30,98 @@ ansible -i /home/ansible/myhosts.yaml remote_hosts -m shell -a "free -h" >>  /tm
 ```
 ansible -i /home/ansible/myhosts.yaml localhost -m shell -a "ls /tmp"
 ```
+
+### Task_3
+
+1. Run ad-hoc command to check free memory on web host
+```
+ansible -i poc_servers.yaml web -m shell -a "free -h"
+```
+Output:
+```
+web | CHANGED | rc=0 >>
+              total        used        free      shared  buff/cache   available
+Mem:          981Mi       270Mi        98Mi       0.0Ki       612Mi       531Mi
+Swap:            0B          0B          0B
+```
+2. Run ad-hoc command to check free disk on we host 
+``` 
+ansible -i poc_servers.yaml web -m shell -a "df -h"
+```
+Output:
+```
+ web | CHANGED | rc=0 >>
+ Filesystem      Size  Used Avail Use% Mounted on
+ udev            474M     0  474M   0% /dev
+ tmpfs            99M  956K   98M   1% /run
+ /dev/vda1        25G  1.9G   23G   8% /
+ tmpfs           491M     0  491M   0% /dev/shm
+ tmpfs           5.0M     0  5.0M   0% /run/lock
+ tmpfs           491M     0  491M   0% /sys/fs/cgroup
+ /dev/vda15      105M  3.9M  101M   4% /boot/efi
+ /dev/loop0       56M   56M     0 100% /snap/core18/1944
+ /dev/loop1       56M   56M     0 100% /snap/core18/1885
+ /dev/loop2       71M   71M     0 100% /snap/lxd/16922
+ /dev/loop3       70M   70M     0 100% /snap/lxd/19032
+ /dev/loop4       31M   31M     0 100% /snap/snapd/9607
+ /dev/loop5       32M   32M     0 100% /snap/snapd/10707
+ tmpfs            99M     0   99M   0% /run/user/0
+``` 
+3. Run ad-hoc command to check the status of nginx service
+```
+ansible -i poc_servers.yaml all -m shell -a "systemctl status nginx" 
+```
+Output:
+```
+web | CHANGED | rc=0 >>
+● nginx.service - A high performance web server and a reverse proxy server
+   Loaded: loaded (/lib/systemd/system/nginx.service; enabled; vendor preset: enabled)
+   Active: active (running) since Sun 2021-01-31 00:31:04 UTC; 38min ago
+     Docs: man:nginx(8)
+  Process: 1897 ExecStop=/sbin/start-stop-daemon --quiet --stop --retry QUIT/5 --pidfile /run/nginx.pid (code=exited, status=0/SUCCESS)
+  Process: 1951 ExecStart=/usr/sbin/nginx -g daemon on; master_process on; (code=exited, status=0/SUCCESS)
+  Process: 1942 ExecStartPre=/usr/sbin/nginx -t -q -g daemon on; master_process on; (code=exited, status=0/SUCCESS)
+ Main PID: 1955 (nginx)
+    Tasks: 2 (limit: 1152)
+   CGroup: /system.slice/nginx.service
+           ├─1955 nginx: master process /usr/sbin/nginx -g daemon on; master_process on;
+           └─1959 nginx: worker process
+
+Jan 31 00:31:04 ubuntu systemd[1]: Starting A high performance web server and a reverse proxy server...
+Jan 31 00:31:04 ubuntu systemd[1]: nginx.service: Failed to parse PID from file /run/nginx.pid: Invalid argument
+Jan 31 00:31:04 ubuntu systemd[1]: Started A high performance web server and a reverse proxy server.
+```
+4. Run ad-hoc command to check distribution of web host (hint  use setup module)
+```
+ansible -i poc_servers.yaml web -m setup -a "filter=ansible_distr*"
+```
+Output:
+```
+web | SUCCESS => {
+    "ansible_facts": {
+        "ansible_distribution": "Ubuntu", 
+        "ansible_distribution_file_parsed": true, 
+        "ansible_distribution_file_path": "/etc/os-release", 
+        "ansible_distribution_file_variety": "Debian", 
+        "ansible_distribution_major_version": "20", 
+        "ansible_distribution_release": "focal", 
+        "ansible_distribution_version": "20.04", 
+        "discovered_interpreter_python": "/usr/bin/python3"
+    }, 
+    "changed": false
+}
+```  
+5. Run ad-hoc command to check hostname on web host (bin use setup module)
+```
+ansible -i poc_servers.yaml web -m setup -a "filter=ansible_nodename"
+```
+Output:
+```
+web | SUCCESS => {
+    "ansible_facts": {
+        "ansible_nodename": "ubuntu", 
+        "discovered_interpreter_python": "/usr/bin/python3"
+    }, 
+    "changed": false
+}
+```
