@@ -1,17 +1,22 @@
 Ad-hoc commands:
 
-- Run ad-hoc command to check free memory on web host
-
-[root@ansible-server poc_work]# ansible -i poc_servers.yaml web -m shell -a "free -h"
+Run ad-hoc command to check free memory on web host
+```
+ansible -i poc_servers.yaml web -m shell -a "free -h"
+```
+Output:
+```
 web | CHANGED | rc=0 >>
               total        used        free      shared  buff/cache   available
 Mem:          981Mi       270Mi        98Mi       0.0Ki       612Mi       531Mi
 Swap:            0B          0B          0B
-
-- Run ad-hoc command to check free disk on we host 
- 
-[root@ansible-server poc_work]# ansible -i poc_servers.yaml web -m shell -a "df -h"
-
+```
+Run ad-hoc command to check free disk on we host 
+``` 
+ansible -i poc_servers.yaml web -m shell -a "df -h"
+```
+Output:
+```
  web | CHANGED | rc=0 >>
  Filesystem      Size  Used Avail Use% Mounted on
  udev            474M     0  474M   0% /dev
@@ -28,11 +33,13 @@ Swap:            0B          0B          0B
  /dev/loop4       31M   31M     0 100% /snap/snapd/9607
  /dev/loop5       32M   32M     0 100% /snap/snapd/10707
  tmpfs            99M     0   99M   0% /run/user/0
- 
-- Run ad-hoc command to check the status of nginx service
-
-[root@ansible-server poc_work_task_3]# ansible -i poc_servers.yaml all -m shell -a "systemctl status nginx" 
-
+``` 
+Run ad-hoc command to check the status of nginx service
+```
+ansible -i poc_servers.yaml all -m shell -a "systemctl status nginx" 
+```
+Output:
+```
 web | CHANGED | rc=0 >>
 ● nginx.service - A high performance web server and a reverse proxy server
    Loaded: loaded (/lib/systemd/system/nginx.service; enabled; vendor preset: enabled)
@@ -50,11 +57,13 @@ web | CHANGED | rc=0 >>
 Jan 31 00:31:04 ubuntu systemd[1]: Starting A high performance web server and a reverse proxy server...
 Jan 31 00:31:04 ubuntu systemd[1]: nginx.service: Failed to parse PID from file /run/nginx.pid: Invalid argument
 Jan 31 00:31:04 ubuntu systemd[1]: Started A high performance web server and a reverse proxy server.
-
-- Run ad-hoc command to check distribution of web host (hint  use setup module)
-
-[root@ansible-server poc_work]# ansible -i poc_servers.yaml web -m setup -a "filter=ansible_distr*"
-
+```
+Run ad-hoc command to check distribution of web host (hint  use setup module)
+```
+ansible -i poc_servers.yaml web -m setup -a "filter=ansible_distr*"
+```
+Output:
+```
 web | SUCCESS => {
     "ansible_facts": {
         "ansible_distribution": "Ubuntu", 
@@ -68,10 +77,13 @@ web | SUCCESS => {
     }, 
     "changed": false
 }
-  
-- Run ad-hoc command to check hostname on web host (bin use setup module)
-
-[root@ansible-server poc_work]# ansible -i poc_servers.yaml web -m setup -a "filter=ansible_nodename"
+```  
+Run ad-hoc command to check hostname on web host (bin use setup module)
+```
+ansible -i poc_servers.yaml web -m setup -a "filter=ansible_nodename"
+```
+Output:
+```
 web | SUCCESS => {
     "ansible_facts": {
         "ansible_nodename": "ubuntu", 
@@ -79,3 +91,4 @@ web | SUCCESS => {
     }, 
     "changed": false
 }
+```
