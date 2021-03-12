@@ -1,9 +1,6 @@
-## Ad-hoc commands
+### Ad-hoc commands
 
 1. Run ansible ad-hoc command and ensure ansible-server can ping the newly added hosts
-
 2. Run ansible ad-hoc command to find the distribution of newly added hosts 
-
 3. Run ansible ad-hoc command to check the free memory of newly added hosts 
-
 4. Run ansible ad-hoc command to check storage available in newly added hosts
