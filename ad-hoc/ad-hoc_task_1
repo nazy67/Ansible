@@ -1,15 +1,9 @@
 ## Ad-hoc commands:
 
 1. Find all distribution related information of managed hosts.
-
 2. Add user anna, with uid 2040 and comment “System Engineer” to all managed servers.
-
 3. Create an empty file called “ansible-testfile” in /tmp folder of all managed servers.
-
 4. Modify user anna’s uid to 2050 on all managed servers.
-
 5. Check “free disk” on all managed servers, and save the output to /tmp/diskusage.
-
 6.  Check free memory of group “remote-hosts” and save the output to /tmp/freememory.
-
 7.  Check the /tmp folder if those files.
