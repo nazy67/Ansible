@@ -30,7 +30,101 @@ ansible -i /home/ansible/myhosts.yaml remote_hosts -m shell -a "free -h" >>  /tm
 ```
 ansible -i /home/ansible/myhosts.yaml localhost -m shell -a "ls /tmp"
 ```
+### Task_2
 
+1. Run ansible ad-hoc command and ensure ansible-server can ping the newly added hosts
+```
+ansible -i inventory.yaml all -m ping
+```
+Output:
+```
+    host1 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    }, 
+    "changed": false, 
+    "ping": "pong"
+}
+host2 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    }, 
+    "changed": false, 
+    "ping": "pong"
+}
+```
+2. Run ansible ad-hoc command to find the distribution of newly added hosts 
+```
+ansible -i inventory.yaml dev_servers -m setup -a "filter=ansible_dist*"
+```
+Output:
+```
+host2 | SUCCESS => {
+    "ansible_facts": {
+        "ansible_distribution": "CentOS", 
+        "ansible_distribution_file_parsed": true, 
+        "ansible_distribution_file_path": "/etc/redhat-release", 
+        "ansible_distribution_file_variety": "RedHat", 
+        "ansible_distribution_major_version": "7", 
+        "ansible_distribution_release": "Core", 
+        "ansible_distribution_version": "7.8", 
+        "discovered_interpreter_python": "/usr/bin/python"
+    }, 
+    "changed": false
+}
+host1 | SUCCESS => {
+    "ansible_facts": {
+        "ansible_distribution": "CentOS", 
+        "ansible_distribution_file_parsed": true, 
+        "ansible_distribution_file_path": "/etc/redhat-release", 
+        "ansible_distribution_file_variety": "RedHat", 
+        "ansible_distribution_major_version": "7", 
+        "ansible_distribution_release": "Core", 
+        "ansible_distribution_version": "7.8", 
+        "discovered_interpreter_python": "/usr/bin/python"
+    }, 
+    "changed": false
+}
+```
+3. Run ansible ad-hoc command to check the free memory of newly added hosts 
+```
+ansible -i inventory.yaml dev_servers -m shell -a "free -h"
+```
+Output:
+```
+host2 | CHANGED | rc=0 >>
+              total        used        free      shared  buff/cache   available
+Mem:           991M        105M        742M         12M        143M        738M
+Swap:            0B          0B          0B
+host1 | CHANGED | rc=0 >>
+              total        used        free      shared  buff/cache   available
+Mem:           991M        104M        742M         12M        144M        738M
+Swap:            0B          0B          0B
+
+```
+4. Run ansible ad-hoc command to check storage available in newly added hosts 
+```
+ansible -i inventory.yaml dev_servers -m shell -a "df -h"
+```
+Output:
+```
+host2 | CHANGED | rc=0 >>
+Filesystem      Size  Used Avail Use% Mounted on
+devtmpfs        473M     0  473M   0% /dev
+tmpfs           496M     0  496M   0% /dev/shm
+tmpfs           496M   13M  483M   3% /run
+tmpfs           496M     0  496M   0% /sys/fs/cgroup
+/dev/vda1        25G  839M   25G   4% /
+tmpfs           100M     0  100M   0% /run/user/0
+host1 | CHANGED | rc=0 >>
+Filesystem      Size  Used Avail Use% Mounted on
+devtmpfs        473M     0  473M   0% /dev
+tmpfs           496M     0  496M   0% /dev/shm
+tmpfs           496M   13M  483M   3% /run
+tmpfs           496M     0  496M   0% /sys/fs/cgroup
+/dev/vda1        25G  839M   25G   4% /
+tmpfs           100M     0  100M   0% /run/user/0
+```
 ### Task_3
 
 1. Run ad-hoc command to check free memory on web host
